@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	
+	<!-- log4j2 Properties -->
+	<Properties>
+    	<Property name="LOG_HOME">C:\\FeatureSwitch\\logs</Property>
+  	</Properties>
+  	
+  	<!-- log4j2 Appenders -->
+    <Appenders>
+    
+    	<!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS } [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        
+        <!-- Rolling File Appender -->
+        <RollingFile 
+        	name="RollingFile" 
+        	fileName="${LOG_HOME}/feature-switch.log"
+        	filePattern="${LOG_HOME}/archived/feature-switch.%d{yyyy-MM-dd}.%i.log.zip">
+            
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+    
+    <!-- log4j2 Loggers -->
+    <Loggers>
+        
+        <Logger name="com.ml.featureswitch" level="info" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="org.springframework.boot" level="info" additivity="false">
+        	<AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="com.ml.featureswitch.flow" level="info" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+                
+        <Logger name="com.ml.featureswitch.util" level="info" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="org.apache.camel" level="info" additivity="false">
+        	<AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="org.springframework.core" level="info" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="org.apache.cxf" level="info" additivity="false">
+        	<AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger> 
+
+        <Logger name="org.apache.logging.log4j" level="info" additivity="false">
+        	<AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger> 
+        
+        <Root level="error">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
